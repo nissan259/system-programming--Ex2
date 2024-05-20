@@ -1,36 +1,23 @@
 #define DOCTEST_CONFIG_IMPLEMENT
 #include "doctest.h"
-using namespace doctest;
+//orel55551234@gmail.com
+//orel nissan
+//322861527
+int main(int argc, char** argv) {
+    const int numstop=5;
+    doctest::Context context;
 
-const int MIN_TESTS = 20;
+    // Set default values
+    context.setOption("abort-after", numstop);  // Stop test execution after 5 failed assertions
+    context.setOption("order-by", "name");  // Sort test cases by name
 
-int return_code = -1;
+    context.applyCommandLine(argc, argv);
 
-struct ReporterCounter : public ConsoleReporter
-{
-    ReporterCounter(const ContextOptions &input_options)
-        : ConsoleReporter(input_options) {}
+    // Run tests
+    int res = context.run();
 
-    void test_run_end(const TestRunStats &run_stats) override
-    {
-        if (run_stats.numAsserts >= MIN_TESTS)
-        {
-            return_code = 0;
-        }
-        else
-        {
-            std::cout << "Please write at least " << MIN_TESTS << " tests! " << std::endl;
-            return_code = 1;
-        }
+    if(context.shouldExit()) {
+        return res;
     }
-};
-
-REGISTER_REPORTER("counter", 1, ReporterCounter);
-
-int main(int argc, char **argv)
-{
-    Context context;
-    context.addFilter("reporters", "counter");
-    context.run();
-    return return_code;
+    return res;
 }

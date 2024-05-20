@@ -1,23 +1,110 @@
-# מטלה 2 - גרפים והעמסת אופרטורים
+Graph Algorithms
+Overview
 
-במטלה הקודמת מימשתם את המחלקה `Graph.cpp` המאפשרת ייצוג של גרפים בעזרת מטריצת שכנויות. במטלה הזאת, אתם תרחיבו את המחלקה ותוסיפו תמיכה באופרטורים חשבוניים על גרפים.
-כאמור, הגרפים מיוצגים בעזרת מטריצת שכנויות, לכן כל האופרטורים צריכים להיות חוקיים עבור מטריצות (כמו שלמדתם בקורס אלגברה לינארית).
+Welcome to the Graph Algorithms project! This project provides a versatile Graph class implemented in C++. The class supports a variety of operations on graphs, including addition, subtraction, scalar multiplication, and more. Additionally, the project includes comprehensive functionality for graph composition, complementation, and various operator overloads to facilitate intuitive graph manipulations.
+Features
 
-אתם תצטרכו להוסיף את האופרטורים הבאים:
+    Graph Representation: Store graphs as adjacency matrices.
+    Graph Operations: Support for addition, subtraction, scalar multiplication, and division.
+    Operator Overloads: Overloaded operators for intuitive graph manipulations.
+    Graph Composition and Complementation: Methods to compute the composition and complementation of graphs.
+    Error Handling: Robust checks for valid operations and dimension mismatches.
 
-- שישה אופרטורים חשבוניים: חיבור (+) הוספה (+=) פלוס אונרי (+), ושלושת האופרטורים המקבילים לחיסור (-). כאמור, חיבור/חיסור של שתי מטריצות מוגדר רק על מטריצות מאותו סדר גודל nXn. ניסיון לחבר/לחסר שתי מטריצות שלא מקיימות תנאי זה יגרום לזריקת שגיאה.
-- שישה אופרטורי השוואה: גדול, גדול-או-שווה, קטן, קטן-או-שווה, שווה, לא-שווה. לשם מטלה זו כללי השוואת גרפים הם כדלקמן:
+Installation
 
-  1. גרפים G1 ו-G2 ייקראו שווים אם הם מאותו סדר גודל ומכילים את אותן הצלעות (והמשקלים של הצלעות זהים) או אם G1 לא גדול מ-G2 וגם G2 לא גדול מ-G1.
-  2. גרף G2 גדול מגרף G1 אם הגרף G1 מוכל ממש בגרף G2. אם אף גרף לא מוכל ממש בשני והגרפים לא שווים, אז גרף G2 גדול מגרף G1 אם מספר הצלעות ב-G2 גדול ממספר הצלעות ב-G1. אם בכל זאת מספר הצלעות זהה, אז הגרף G2 גדול מהגרף G1 אם המטריצה המייצגת של G2 בעלת סדר גודל גבוה יותר משל G1.
+To use this project, ensure you have a C++ compiler installed (such as g++) and the make utility. Clone the repository from GitHub:
 
-- הגדלה ב-1 (++) והקטנה ב-1 (--) לפני ואחרי המספר. פעולה זו תגדיל או תקטין ב-1 את כל המשקלים של הצלעות בגרף.
-- הכפלה בסקלר שלם (`int`) - מכפיל את המשקל של כל הצלעות.
-- הכפלת גרפים - אנחנו מגדירים את פעולת הכפל בין גרף G1 לגרף G2 על ידי מכפלה של המטריצות המייצגות של שני הגרפים. התוצאה צריכה להיות מטריצה המייצגת גרף. ניסיון לבצע כפל בין גרפים בגדלים שונים צריך לזרוק שגיאה.
-- אופרטור פלט - הדפסה הגיונית של הגרף (צורת ההפדסה היא לשיקולכם).
+sh
 
+git clone https://github.com/nissan259/system-programming--Ex1.git
+cd system-programming--Ex1
 
-כמו כן, עליכם לכלול גם את הקובץ `Algorithms.cpp` מהמטלה הקודמת ולראות כיצד הפונקציות שהגדרתם בפעם הקודמת משתנות עכשיו. בנוסף לקבצים של המטלה אתם נדרשים להגיש גם קובץ README המתאר את אופן המימוש ואת החלוקה שביצעתם בקוד (סוג של מדריך משתמש).
-עליכם לכתוב בתחילת כל קובץ את מספר תעודת הזהות שלכם ואת המייל. אי עמידה בהנחיות תגרור הפחתה בציון.
-בהצלחה!
+Building the Project
 
+This project uses a Makefile for easy compilation. To build the project, simply run:
+
+sh
+
+make
+
+This will compile the Graph class and generate the executable.
+Running the Project
+
+After building the project, you can run the executable. For example:
+
+sh
+
+./graph_executable
+
+Replace graph_executable with the name of your compiled executable.
+Usage
+
+Here's a brief overview of how to use the Graph class:
+Creating a Graph
+
+cpp
+
+#include "Graph.hpp"
+
+int main() {
+    ariel::Graph g(3, 3);
+    g.setAdjacencyMatrix(0, 1, 1);
+    g.setAdjacencyMatrix(1, 2, 1);
+    g.printGraph();
+    return 0;
+}
+
+Loading a Graph from an Adjacency Matrix
+
+cpp
+
+std::vector<std::vector<int>> adjMatrix = {
+    {0, 1, 0},
+    {1, 0, 1},
+    {0, 1, 0}
+};
+g.loadGraph(adjMatrix);
+
+Performing Operations
+
+cpp
+
+ariel::Graph g1(2, 2);
+ariel::Graph g2(2, 2);
+
+g1.setAdjacencyMatrix(0, 1, 1);
+g2.setAdjacencyMatrix(1, 0, 1);
+
+ariel::Graph g3 = g1 + g2;
+g3.printGraph();
+
+Operator Overloads
+
+The Graph class supports various operator overloads for intuitive usage:
+
+cpp
+
+ariel::Graph g1(3, 3);
+ariel::Graph g2 = -g1;  // Unary minus
+ariel::Graph g3 = g1 * 2;  // Scalar multiplication
+g1 += g2;  // Addition assignment
+
+Cleaning Up
+
+To remove the compiled files and clean the directory, run:
+
+sh
+
+make clean
+
+Contributing
+
+Contributions are welcome! Please fork the repository and submit pull requests for any enhancements or bug fixes.
+License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
+Contact
+
+For any questions or inquiries, please contact Orel Nissan at orel55551234@gmail.com.
+
+This README file provides a comprehensive guide to understanding, installing, building, and using the Graph Algorithms project.
