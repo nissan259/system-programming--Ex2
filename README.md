@@ -26,10 +26,14 @@ The Graph Algorithms Project is implemented in C++ and provides a comprehensive 
 
 To compile the project, use the following commands:
 
-```sh
+to run the test
 make
-```
-
+/.test
+if you want to run the demo
+raplce the main's
+and then
+make
+/.demo
 This will compile the source files and produce an executable named `test`.
 
 ## Running the Tests
@@ -112,7 +116,5 @@ You should see output indicating that all tests have passed:
 - **ID****: 322861527
 - **Email**: orel55551234@gmail.com
 
-For more information, please visit the [project repository](https://github.com/nissan259/system-programming--Ex2.git).
-```
 
 Feel free to copy and paste this README content into your GitHub repository.
