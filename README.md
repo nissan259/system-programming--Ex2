@@ -1,110 +1,118 @@
-Graph Algorithms
-Overview
+```markdown
+# Graph Algorithms Project
 
-Welcome to the Graph Algorithms project! This project provides a versatile Graph class implemented in C++. The class supports a variety of operations on graphs, including addition, subtraction, scalar multiplication, and more. Additionally, the project includes comprehensive functionality for graph composition, complementation, and various operator overloads to facilitate intuitive graph manipulations.
-Features
+This repository contains a C++ implementation of various graph algorithms. The project is designed to showcase the functionality of graph operations including loading graphs, manipulating adjacency matrices, and performing graph arithmetic operations.
 
-    Graph Representation: Store graphs as adjacency matrices.
-    Graph Operations: Support for addition, subtraction, scalar multiplication, and division.
-    Operator Overloads: Overloaded operators for intuitive graph manipulations.
-    Graph Composition and Complementation: Methods to compute the composition and complementation of graphs.
-    Error Handling: Robust checks for valid operations and dimension mismatches.
+## Table of Contents
 
-Installation
+- [Introduction](#introduction)
+- [Setup and Compilation](#setup-and-compilation)
+- [Running the Tests](#running-the-tests)
+- [Graph Class Overview](#graph-class-overview)
+  - [Constructor and Destructor](#constructor-and-destructor)
+  - [Graph Loading and Printing](#graph-loading-and-printing)
+  - [Accessor Methods](#accessor-methods)
+  - [Operator Overloading](#operator-overloading)
+  - [Graph Composition and Complementation](#graph-composition-and-complementation)
+  - [Friend Functions](#friend-functions)
+  - [Additional Functions](#additional-functions)
+- [Contact Information](#contact-information)
 
-To use this project, ensure you have a C++ compiler installed (such as g++) and the make utility. Clone the repository from GitHub:
+## Introduction
 
-sh
+The Graph Algorithms Project is implemented in C++ and provides a comprehensive set of functionalities for working with graphs. The main component of the project is the `Graph` class, which supports various operations such as graph loading, printing, arithmetic operations, and more.
 
-git clone https://github.com/nissan259/system-programming--Ex1.git
-cd system-programming--Ex1
+## Setup and Compilation
 
-Building the Project
+To compile the project, use the following commands:
 
-This project uses a Makefile for easy compilation. To build the project, simply run:
-
-sh
-
+```sh
 make
+```
 
-This will compile the Graph class and generate the executable.
-Running the Project
+This will compile the source files and produce an executable named `test`.
 
-After building the project, you can run the executable. For example:
+## Running the Tests
 
-sh
+After compilation, run the tests using:
 
-./graph_executable
+```sh
+./test
+```
 
-Replace graph_executable with the name of your compiled executable.
-Usage
+You should see output indicating that all tests have passed:
 
-Here's a brief overview of how to use the Graph class:
-Creating a Graph
+```
+[doctest] doctest version is "2.4.11"
+[doctest] run with "--help" for options
+===============================================================================
+[doctest] test cases: 24 | 24 passed | 0 failed | 0 skipped
+[doctest] assertions: 70 | 70 passed | 0 failed |
+[doctest] Status: SUCCESS!
+```
 
-cpp
+## Graph Class Overview
 
-#include "Graph.hpp"
+### Constructor and Destructor
 
-int main() {
-    ariel::Graph g(3, 3);
-    g.setAdjacencyMatrix(0, 1, 1);
-    g.setAdjacencyMatrix(1, 2, 1);
-    g.printGraph();
-    return 0;
-}
+- **Graph(int rows, int cols)**: Constructs a graph with the specified number of rows and columns.
+- **Graph()**: Default constructor.
+- **~Graph()**: Destructor.
 
-Loading a Graph from an Adjacency Matrix
+### Graph Loading and Printing
 
-cpp
+- **void loadGraph(const std::vector<std::vector<int>>& adjacencyMatrix)**: Loads a graph from an adjacency matrix.
+- **std::string printGraph() const**: Returns a string representation of the graph.
 
-std::vector<std::vector<int>> adjMatrix = {
-    {0, 1, 0},
-    {1, 0, 1},
-    {0, 1, 0}
-};
-g.loadGraph(adjMatrix);
+### Accessor Methods
 
-Performing Operations
+- **int getRows() const**: Returns the number of rows.
+- **int getCols() const**: Returns the number of columns.
+- **const std::vector<std::vector<int>>& getMatrix() const**: Returns the adjacency matrix.
+- **std::vector<std::vector<int>>& getMatrix()**: Returns a non-const reference to the adjacency matrix.
 
-cpp
+### Operator Overloading
 
-ariel::Graph g1(2, 2);
-ariel::Graph g2(2, 2);
+- **Graph operator+() const**: Unary plus.
+- **Graph operator-() const**: Unary minus.
+- **Graph& operator+=(const Graph& other)**: Adds another graph to this graph.
+- **Graph& operator-=(const Graph& other)**: Subtracts another graph from this graph.
+- **Graph& operator--()**: Prefix decrement.
+- **Graph operator--(int)**: Postfix decrement.
+- **Graph& operator++()**: Prefix increment.
+- **Graph operator++(int)**: Postfix increment.
+- **Graph operator*(int scalar) const**: Multiplies the graph by a scalar.
+- **Graph& operator*=(int scalar)**: Multiplies the graph by a scalar and assigns the result to this graph.
+- **Graph operator/(int scalar) const**: Divides the graph by a scalar.
+- **Graph& operator/=(int scalar)**: Divides the graph by a scalar and assigns the result to this graph.
+- **Graph operator*(const Graph& other) const**: Multiplies this graph with another graph.
+- **Graph& operator*=(const Graph& other)**: Multiplies this graph with another graph and assigns the result to this graph.
 
-g1.setAdjacencyMatrix(0, 1, 1);
-g2.setAdjacencyMatrix(1, 0, 1);
+### Graph Composition and Complementation
 
-ariel::Graph g3 = g1 + g2;
-g3.printGraph();
+- **Graph composition(const Graph& other) const**: Returns the composition of this graph with another graph.
+- **Graph complementation() const**: Returns the complementation of this graph.
+- **Graph operator~() const**: Complementation operator.
 
-Operator Overloads
+### Friend Functions
 
-The Graph class supports various operator overloads for intuitive usage:
+- **friend std::ostream& operator<<(std::ostream& os, const Graph& graph)**: Overloads the stream insertion operator for printing the graph.
+- **friend Graph operator/(int scalar, const Graph& graph)**: Scalar division operator.
+- **friend Graph operator*(int scalar, const Graph& graph)**: Scalar multiplication operator.
 
-cpp
+### Additional Functions
 
-ariel::Graph g1(3, 3);
-ariel::Graph g2 = -g1;  // Unary minus
-ariel::Graph g3 = g1 * 2;  // Scalar multiplication
-g1 += g2;  // Addition assignment
+- **bool valid_check(const Graph& c1, const Graph& c2)**: Checks if two graphs have valid dimensions for operations.
+- **Graph operator+(const Graph& c1, const Graph& c2)**: Adds two graphs.
+- **Graph operator-(const Graph& c1, const Graph& c2)**: Subtracts one graph from another.
 
-Cleaning Up
+## Contact Information
 
-To remove the compiled files and clean the directory, run:
+- **Name**: Orel Nissan
+- **ID****: 322861527
+- **Email**: orel55551234@gmail.com
 
-sh
+For more information, please visit the [project repository](https://github.com/nissan259/system-programming--Ex2.git).
+```
 
-make clean
-
-Contributing
-
-Contributions are welcome! Please fork the repository and submit pull requests for any enhancements or bug fixes.
-License
-
-This project is licensed under the MIT License. See the LICENSE file for more details.
-Contact
-
-For any questions or inquiries, please contact Orel Nissan at orel55551234@gmail.com.
-
-This README file provides a comprehensive guide to understanding, installing, building, and using the Graph Algorithms project.
+Feel free to copy and paste this README content into your GitHub repository.
