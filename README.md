@@ -3,20 +3,6 @@
 
 This repository contains a C++ implementation of various graph algorithms. The project is designed to showcase the functionality of graph operations including loading graphs, manipulating adjacency matrices, and performing graph arithmetic operations.
 
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Setup and Compilation](#setup-and-compilation)
-- [Running the Tests](#running-the-tests)
-- [Graph Class Overview](#graph-class-overview)
-  - [Constructor and Destructor](#constructor-and-destructor)
-  - [Graph Loading and Printing](#graph-loading-and-printing)
-  - [Accessor Methods](#accessor-methods)
-  - [Operator Overloading](#operator-overloading)
-  - [Graph Composition and Complementation](#graph-composition-and-complementation)
-  - [Friend Functions](#friend-functions)
-  - [Additional Functions](#additional-functions)
-- [Contact Information](#contact-information)
 
 ## Introduction
 
