@@ -1,8 +1,9 @@
+Sure, here's the improved README file written in Markdown format:
+
 ```markdown
 # Graph Algorithms Project
 
 This repository contains a C++ implementation of various graph algorithms. The project is designed to showcase the functionality of graph operations including loading graphs, manipulating adjacency matrices, and performing graph arithmetic operations.
-
 
 ## Introduction
 
@@ -12,21 +13,23 @@ The Graph Algorithms Project is implemented in C++ and provides a comprehensive 
 
 To compile the project, use the following commands:
 
-to run the test
+```bash
 make
-/.test
-if you want to run the demo
-raplce the main's
-and then
+./test
+```
+
+To run the demo, replace the main function with the demo main and then use the following commands:
+
+```bash
 make
-/.demo
-This will compile the source files and produce an executable named `test`.
+./demo
+```
 
 ## Running the Tests
 
 After compilation, run the tests using:
 
-```sh
+```bash
 ./test
 ```
 
@@ -99,8 +102,6 @@ You should see output indicating that all tests have passed:
 ## Contact Information
 
 - **Name**: Orel Nissan
-- **ID****: 322861527
+- **ID**: 322861527
 - **Email**: orel55551234@gmail.com
 
-
-Feel free to copy and paste this README content into your GitHub repository.
