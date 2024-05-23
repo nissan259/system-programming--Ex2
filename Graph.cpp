@@ -3,19 +3,37 @@
 #include <sstream>
 #include <iostream>
 #include <vector>
+
 namespace ariel {
 
 // Constructor with dimensions
+/**
+ * @brief Construct a new Graph object with specified dimensions.
+ *
+ * @param rows Number of rows in the graph's adjacency matrix.
+ * @param cols Number of columns in the graph's adjacency matrix.
+ */
     Graph::Graph(int rows, int cols)
             : rows(rows), cols(cols), matrix(static_cast<std::vector<int>::size_type>(rows), std::vector<int>(static_cast<std::vector<int>::size_type>(cols), 0)) {}
 
 // Default constructor
+/**
+ * @brief Construct a new Graph object with default dimensions (0, 0).
+ */
     Graph::Graph() : Graph(0, 0) {}
 
 // Destructor
+/**
+ * @brief Destroy the Graph object.
+ */
     Graph::~Graph() {}
 
 // Load graph from an adjacency matrix
+/**
+ * @brief Load the graph from an adjacency matrix.
+ *
+ * @param adjacencyMatrix A 2D vector representing the adjacency matrix of the graph.
+ */
     void Graph::loadGraph(const std::vector<std::vector<int>>& adjacencyMatrix) {
         if (adjacencyMatrix.empty()) {
             std::cerr << "Error: Empty adjacency matrix." << std::endl;
@@ -49,6 +67,11 @@ namespace ariel {
     }
 
 // Print the graph
+/**
+ * @brief Print the graph's adjacency matrix as a string.
+ *
+ * @return std::string The string representation of the graph's adjacency matrix.
+ */
     std::string Graph::printGraph() const {
         std::ostringstream oss;  // Declare the output string stream
 
@@ -70,11 +93,24 @@ namespace ariel {
     }
 
 // Get adjacency matrix
+/**
+ * @brief Get the adjacency matrix of the graph.
+ *
+ * @return const std::vector<std::vector<int>>& Reference to the adjacency matrix.
+ */
     const std::vector<std::vector<int>>& Graph::getAdjacencyMatrix() const {
         return matrix;
     }
 
 // Set a specific value in the adjacency matrix
+/**
+ * @brief Set a specific value in the adjacency matrix.
+ *
+ * @param row The row index.
+ * @param col The column index.
+ * @param val The value to set.
+ * @throws std::out_of_range If the index is out of range.
+ */
     void Graph::setAdjacencyMatrix(int row, int col, int val) {
         if (row < 0 || static_cast<std::vector<int>::size_type>(row) >= matrix.size() || col < 0 || static_cast<std::vector<int>::size_type>(col) >= matrix[0].size()) {
             throw std::out_of_range("Index out of range");
@@ -83,16 +119,34 @@ namespace ariel {
     }
 
 // Utility functions
+/**
+ * @brief Check if two graphs have the same dimensions.
+ *
+ * @param graph1 The first graph.
+ * @param graph2 The second graph.
+ * @return true If the graphs have the same dimensions.
+ * @return false If the graphs have different dimensions.
+ */
     bool valid_check(const Graph& graph1, const Graph& graph2) {
         return graph1.getRows() == graph2.getRows() && graph1.getCols() == graph2.getCols();
     }
 
 // Unary plus
+/**
+ * @brief Unary plus operator for the graph.
+ *
+ * @return Graph The same graph.
+ */
     Graph Graph::operator+() const {
         return *this;
     }
 
 // Unary minus
+/**
+ * @brief Unary minus operator for the graph.
+ *
+ * @return Graph A new graph with all values negated.
+ */
     Graph Graph::operator-() const {
         Graph result(rows, cols);
         for (std::vector<int>::size_type i = 0; i < matrix.size(); ++i) {
@@ -104,6 +158,13 @@ namespace ariel {
     }
 
 // Implement operator+=
+/**
+ * @brief Addition assignment operator for the graph.
+ *
+ * @param other The graph to add.
+ * @return Graph& Reference to the updated graph.
+ * @throws std::runtime_error If the graphs have different dimensions.
+ */
     Graph& Graph::operator+=(const Graph& other) {
         if (rows != other.rows || cols != other.cols) {
             throw std::runtime_error("Condition failed: The graphs have different dimensions.");
@@ -119,6 +180,13 @@ namespace ariel {
     }
 
 // Implement operator-=
+/**
+ * @brief Subtraction assignment operator for the graph.
+ *
+ * @param other The graph to subtract.
+ * @return Graph& Reference to the updated graph.
+ * @throws std::runtime_error If the graphs have different dimensions.
+ */
     Graph& Graph::operator-=(const Graph& other) {
         if (!valid_check(*this, other)) {
             throw std::runtime_error("Condition failed: The graphs have different dimensions.");
@@ -133,6 +201,11 @@ namespace ariel {
     }
 
 // Implement prefix decrement operator--
+/**
+ * @brief Prefix decrement operator for the graph.
+ *
+ * @return Graph& Reference to the updated graph with all non-diagonal elements decremented by 1.
+ */
     Graph& Graph::operator--() {
         for (std::vector<int>::size_type i = 0; i < rows; ++i) {
             for (std::vector<int>::size_type j = 0; j < cols; ++j) {
@@ -145,6 +218,11 @@ namespace ariel {
     }
 
 // Implement prefix increment operator++
+/**
+ * @brief Prefix increment operator for the graph.
+ *
+ * @return Graph& Reference to the updated graph with all non-diagonal elements incremented by 1.
+ */
     Graph& Graph::operator++() {
         for (std::vector<int>::size_type i = 0; i < rows; ++i) {
             for (std::vector<int>::size_type j = 0; j < cols; ++j) {
@@ -157,6 +235,11 @@ namespace ariel {
     }
 
 // Implement postfix decrement operator-- (int)
+/**
+ * @brief Postfix decrement operator for the graph.
+ *
+ * @return Graph The graph before the decrement.
+ */
     Graph Graph::operator--(int) {
         Graph temp = *this;
         --(*this);
@@ -164,6 +247,11 @@ namespace ariel {
     }
 
 // Implement postfix increment operator++ (int)
+/**
+ * @brief Postfix increment operator for the graph.
+ *
+ * @return Graph The graph before the increment.
+ */
     Graph Graph::operator++(int) {
         Graph temp = *this;
         ++(*this);
@@ -171,6 +259,14 @@ namespace ariel {
     }
 
 // Implement operator+
+/**
+ * @brief Addition operator for two graphs.
+ *
+ * @param graph1 The first graph.
+ * @param graph2 The second graph.
+ * @return Graph The result of adding the two graphs.
+ * @throws std::runtime_error If the graphs have different dimensions.
+ */
     Graph operator+(const Graph& graph1, const Graph& graph2) {
         if (!valid_check(graph1, graph2)) {
             throw std::runtime_error("Condition failed: The graphs have different dimensions.");
@@ -182,6 +278,13 @@ namespace ariel {
     }
 
 // Implement operator-
+/**
+ * @brief Subtraction operator for two graphs.
+ *
+ * @param graph1 The first graph.
+ * @param graph2 The second graph.
+ * @return Graph The result of subtracting the second graph from the first graph.
+ */
     Graph operator-(const Graph& graph1, const Graph& graph2) {
         Graph result = graph1;
         result -= graph2;
@@ -189,6 +292,12 @@ namespace ariel {
     }
 
 // Implement operator*
+/**
+ * @brief Scalar multiplication operator for the graph.
+ *
+ * @param scalar The scalar value.
+ * @return Graph The result of multiplying the graph by the scalar.
+ */
     Graph Graph::operator*(int scalar) const {
         Graph result(rows, cols);
         for (std::vector<int>::size_type i = 0; i < matrix.size(); ++i) {
@@ -201,6 +310,12 @@ namespace ariel {
     }
 
 // Implement operator*=
+/**
+ * @brief Scalar multiplication assignment operator for the graph.
+ *
+ * @param scalar The scalar value.
+ * @return Graph& Reference to the updated graph.
+ */
     Graph& Graph::operator*=(int scalar) {
         for (std::vector<int>::size_type i = 0; i < matrix.size(); ++i) {
             for (std::vector<int>::size_type j = 0; j < matrix[i].size(); ++j) {
@@ -211,6 +326,13 @@ namespace ariel {
     }
 
 // Implement operator/=
+/**
+ * @brief Scalar division assignment operator for the graph.
+ *
+ * @param scalar The scalar value.
+ * @return Graph& Reference to the updated graph.
+ * @throws std::runtime_error If the scalar value is zero.
+ */
     Graph& Graph::operator/=(int scalar) {
         if (scalar == 0) {
             throw std::runtime_error("Division by zero.");
@@ -224,6 +346,13 @@ namespace ariel {
     }
 
 // Scalar division operator
+/**
+ * @brief Scalar division operator for the graph.
+ *
+ * @param scalar The scalar value.
+ * @return Graph The result of dividing the graph by the scalar.
+ * @throws std::runtime_error If the scalar value is zero.
+ */
     Graph Graph::operator/(int scalar) const {
         if (scalar == 0) {
             throw std::runtime_error("Division by zero.");
@@ -234,6 +363,13 @@ namespace ariel {
     }
 
 // Implement operator*(Graph)
+/**
+ * @brief Matrix multiplication operator for two graphs.
+ *
+ * @param other The other graph.
+ * @return Graph The result of multiplying the two graphs.
+ * @throws std::invalid_argument If the graphs are not square or their dimensions do not match.
+ */
     Graph Graph::operator*(const Graph& other) const {
         // Check if either matrix is empty
         if (this->matrix.empty() || other.matrix.empty()) {
@@ -270,12 +406,25 @@ namespace ariel {
         return result;
     }
 
-// Implement operator*=(Graph)
+// Implement operator*=
+/**
+ * @brief Matrix multiplication assignment operator for the graph.
+ *
+ * @param other The other graph.
+ * @return Graph& Reference to the updated graph.
+ */
     Graph& Graph::operator*=(const Graph& other) {
         *this = *this * other;
         return *this;
     }
 
+/**
+ * @brief Equality operator for two graphs.
+ *
+ * @param other The other graph.
+ * @return true If the graphs are equal.
+ * @return false If the graphs are not equal.
+ */
     bool Graph::operator==(const Graph& other) const {
         if (!valid_check(*this, other)) {
             return false;
@@ -319,10 +468,24 @@ namespace ariel {
         return g1_not_greater && g2_not_greater;
     }
 
+/**
+ * @brief Inequality operator for two graphs.
+ *
+ * @param other The other graph.
+ * @return true If the graphs are not equal.
+ * @return false If the graphs are equal.
+ */
     bool Graph::operator!=(const Graph& other) const {
         return !(*this == other);
     }
 
+/**
+ * @brief Less than operator for two graphs.
+ *
+ * @param other The other graph.
+ * @return true If this graph is less than the other graph.
+ * @return false Otherwise.
+ */
     bool Graph::operator<(const Graph& other) const {
         if (rows < other.rows || (rows == other.rows && cols < other.cols)) {
             return true;
@@ -340,19 +503,47 @@ namespace ariel {
         return false;
     }
 
+/**
+ * @brief Less than or equal operator for two graphs.
+ *
+ * @param other The other graph.
+ * @return true If this graph is less than or equal to the other graph.
+ * @return false Otherwise.
+ */
     bool Graph::operator<=(const Graph& other) const {
         return *this < other || *this == other;
     }
 
+/**
+ * @brief Greater than operator for two graphs.
+ *
+ * @param other The other graph.
+ * @return true If this graph is greater than the other graph.
+ * @return false Otherwise.
+ */
     bool Graph::operator>(const Graph& other) const {
         return !(*this <= other);
     }
 
+/**
+ * @brief Greater than or equal operator for two graphs.
+ *
+ * @param other The other graph.
+ * @return true If this graph is greater than or equal to the other graph.
+ * @return false Otherwise.
+ */
     bool Graph::operator>=(const Graph& other) const {
         return !(*this < other);
     }
 
 // Friend function to print graph
+/**
+ * @brief Output stream operator to print the graph.
+ *
+ * @param output The output stream.
+ * @param graph The graph to print.
+ * @return std::ostream& Reference to the output stream.
+ */
     std::ostream& operator<<(std::ostream& output, const Graph& graph) {
         for (const auto& row : graph.matrix) {
             output << "[";
@@ -370,6 +561,14 @@ namespace ariel {
     }
 
 // Scalar division operator (scalar / graph)
+/**
+ * @brief Scalar division operator for a scalar and a graph.
+ *
+ * @param scalar The scalar value.
+ * @param graph The graph to divide.
+ * @return Graph The result of dividing the scalar by the graph.
+ * @throws std::runtime_error If the scalar value is zero.
+ */
     Graph operator/(int scalar, const Graph& graph) {
         if (scalar == 0) {
             throw std::runtime_error("Division by zero: scalar is zero.");
@@ -390,8 +589,14 @@ namespace ariel {
         return result;
     }
 
-
 // Scalar multiplication operator (scalar * graph)
+/**
+ * @brief Scalar multiplication operator for a scalar and a graph.
+ *
+ * @param scalar The scalar value.
+ * @param graph The graph to multiply.
+ * @return Graph The result of multiplying the scalar by the graph.
+ */
     Graph operator*(int scalar, const Graph& graph) {
         return graph * scalar;
     }
